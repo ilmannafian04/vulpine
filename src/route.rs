@@ -6,6 +6,7 @@ pub fn configuration(cfg: &mut ServiceConfig) {
     cfg.service(
         web::scope("/api")
             .route("/ping", web::get().to(c::ping))
+            .route("/sleep", web::get().to(c::sleep))
             .wrap(Logger::default()),
     );
 }

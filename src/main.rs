@@ -1,5 +1,6 @@
 mod config;
 mod controller;
+mod dto;
 mod route;
 
 use actix_web::{web::Data, App, HttpServer};
