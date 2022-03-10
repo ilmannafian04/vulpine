@@ -5,7 +5,7 @@ on:
 
 jobs:
   docker:
-    uses: ilmannafian04/.github/workflows/docker.yml@main
+    uses: ilmannafian04/dot-github/workflows/docker.yml@main
     with:
       username: ilmannafian
       repository: ilmannafian
