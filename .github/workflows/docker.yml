@@ -1,0 +1,12 @@
+on:
+  push:
+    tags:
+     - v*.*.*
+
+jobs:
+  docker:
+    uses: ilmannafian04/.github/workflows/docker.yml
+    with:
+      username: ilmannafian
+      repository: ilmannafian
+      app-name: vulpine
