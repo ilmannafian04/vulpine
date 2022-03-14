@@ -2,13 +2,16 @@ use actix_web::{web, HttpResponse, Responder};
 use log::info;
 use rand::Rng;
 
-use crate::dto::SleepArgs;
+use crate::dto::{SleepArgs, ThrowawayParam};
 
 pub async fn ping() -> impl Responder {
     HttpResponse::Ok().finish()
 }
 
-pub async fn sleep(query: web::Query<SleepArgs>) -> impl Responder {
+pub async fn sleep(
+    query: web::Query<SleepArgs>,
+    param: web::Path<ThrowawayParam>,
+) -> impl Responder {
     if !query.random {
         match query.duration {
             Some(duration) => {
@@ -26,5 +29,9 @@ pub async fn sleep(query: web::Query<SleepArgs>) -> impl Responder {
             return HttpResponse::BadRequest().finish();
         }
     }
-    HttpResponse::Ok().finish()
+    if let Some(path_param) = &param.value {
+        HttpResponse::Ok().body(format!("{}", path_param))
+    } else {
+        HttpResponse::Ok().finish()
+    }
 }
