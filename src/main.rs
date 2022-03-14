@@ -11,6 +11,11 @@ async fn main() -> std::io::Result<()> {
     dotenv::dotenv().ok();
     env_logger::init();
 
+    info!(
+        "starting {} v{}",
+        env!("CARGO_PKG_NAME"),
+        env!("CARGO_PKG_VERSION")
+    );
     info!("reading environment variable");
     let app_config = config::AppConfig::new();
 
