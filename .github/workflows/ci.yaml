@@ -4,4 +4,4 @@ on:
 
 jobs:
   ci:
-    uses: ilmannafian04/dot-github/.github/workflows/rust-ci.yml@0b99010
+    uses: ilmannafian04/dot-github/.github/workflows/rust-ci.yml@0b99010aaaaa119561bb5dc197e8aca471ef25b2
