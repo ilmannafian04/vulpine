@@ -3,5 +3,5 @@ on:
   push:
 
 jobs:
-  docker:
-    uses: ilmannafian04/dot-github/.github/workflows/rust-ci.yml@0e607abc5a1bbd3b0af9985104ab067480828e4f
+  ci:
+    uses: ilmannafian04/dot-github/.github/workflows/rust-ci.yml@0b99010
