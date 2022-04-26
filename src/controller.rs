@@ -2,7 +2,10 @@ use actix_web::{web, HttpResponse, Responder};
 use log::info;
 use rand::Rng;
 
-use crate::dto::{SleepArgs, ThrowawayParam};
+use crate::{
+    config::AppConfig,
+    dto::{SleepArgs, ThrowawayParam},
+};
 
 pub async fn ping() -> impl Responder {
     HttpResponse::Ok().finish()
@@ -34,4 +37,8 @@ pub async fn sleep(
     } else {
         HttpResponse::Ok().finish()
     }
+}
+
+pub async fn message(config: web::Data<AppConfig>) -> impl Responder {
+    HttpResponse::Ok().body(format!("{}", config.message))
 }

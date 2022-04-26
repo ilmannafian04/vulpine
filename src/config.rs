@@ -7,6 +7,8 @@ pub struct AppConfig {
     pub host: String,
     #[serde(default = "default_port")]
     pub port: u16,
+    #[serde(default = "default_message")]
+    pub message: String,
 }
 
 macro_rules! default_value {
@@ -17,6 +19,7 @@ macro_rules! default_value {
     };
 }
 default_value!(default_host, String, "127.0.0.1".to_owned());
+default_value!(default_message, String, "no message configured".to_owned());
 default_value!(default_port, u16, 8080);
 
 impl AppConfig {
