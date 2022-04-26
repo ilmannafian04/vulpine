@@ -24,22 +24,20 @@ pub async fn sleep(
             }
             None => return HttpResponse::BadRequest().finish(),
         }
+    } else if let (Some(min), Some(max)) = (query.min_duration, query.max_duration) {
+        let duration = rand::thread_rng().gen_range(min..max);
+        info!("thread will sleep for {}ms", duration);
+        tokio::time::sleep(Duration::from_millis(duration)).await;
     } else {
-        if let (Some(min), Some(max)) = (query.min_duration, query.max_duration) {
-            let duration = rand::thread_rng().gen_range(min..max);
-            info!("thread will sleep for {}ms", duration);
-            tokio::time::sleep(Duration::from_millis(duration)).await;
-        } else {
-            return HttpResponse::BadRequest().finish();
-        }
+        return HttpResponse::BadRequest().finish();
     }
     if let Some(path_param) = &param.value {
-        HttpResponse::Ok().body(format!("{}", path_param))
+        HttpResponse::Ok().body(path_param.to_string())
     } else {
         HttpResponse::Ok().finish()
     }
 }
 
 pub async fn message(config: web::Data<AppConfig>) -> impl Responder {
-    HttpResponse::Ok().body(format!("{}", config.message))
+    HttpResponse::Ok().body(config.message.to_owned())
 }
