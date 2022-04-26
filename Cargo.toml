@@ -11,3 +11,4 @@ envy = "0.4.2"
 log = "0.4.14"
 rand = "0.8.5"
 serde = { version = "1.0.136", features = ["derive"] }
+tokio = { version = "1.17.0", features = ["time"] }

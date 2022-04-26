@@ -1,6 +1,7 @@
 use actix_web::{web, HttpResponse, Responder};
 use log::info;
 use rand::Rng;
+use tokio::time::Duration;
 
 use crate::{
     config::AppConfig,
@@ -19,7 +20,7 @@ pub async fn sleep(
         match query.duration {
             Some(duration) => {
                 info!("thread will sleep for {}ms", query.duration.unwrap());
-                std::thread::sleep(std::time::Duration::from_millis(duration));
+                tokio::time::sleep(Duration::from_millis(duration)).await;
             }
             None => return HttpResponse::BadRequest().finish(),
         }
@@ -27,7 +28,7 @@ pub async fn sleep(
         if let (Some(min), Some(max)) = (query.min_duration, query.max_duration) {
             let duration = rand::thread_rng().gen_range(min..max);
             info!("thread will sleep for {}ms", duration);
-            std::thread::sleep(std::time::Duration::from_millis(duration));
+            tokio::time::sleep(Duration::from_millis(duration)).await;
         } else {
             return HttpResponse::BadRequest().finish();
         }
