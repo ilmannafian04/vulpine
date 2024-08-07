@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vulpine
+spec:
+  template:
+    spec:
+      containers:
+        - name: vulpine
+          image: ilmannafian/vulpine:latest
+          resources:
+            limits:
+              memory: "10Mi"
+              cpu: "10m"
+          env:
+            - name: HOST
+              value: "0.0.0.0"
+            - name: PORT
+              value: "80"
+            - name: RUST_LOG
+              value: info
+          ports:
+            - name: http
+              containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            periodSeconds: 5

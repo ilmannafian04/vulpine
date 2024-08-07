@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vulpine
+  annotations:
+    kubernetes.io/tls-acme: "true"
+spec:
+  rules:
+    - host: vulpine.ilman.io
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: vulpine
+                port:
+                  name: http
+  tls:
+    - hosts:
+        - vulpine.ilman.io
+      secretName: vulpine-ilman-io
